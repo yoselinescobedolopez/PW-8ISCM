@@ -62,9 +62,7 @@ export class AdministradorComponent implements OnInit {
     await this.cargarSolicitudes();
   }
 
-  // =========================
-  // VER DETALLE (CORREGIDO)
-  // =========================
+  
 
 async verDetalle(solicitud: any) {
 
@@ -107,9 +105,7 @@ async verDetalle(solicitud: any) {
     this.router.navigate(['/']);
   }
 
-  // =========================
-  // ESTADÍSTICAS
-  // =========================
+  
 
   get pendientes() {
     return this.solicitudes.filter(s => s.estado === 'pendiente').length;

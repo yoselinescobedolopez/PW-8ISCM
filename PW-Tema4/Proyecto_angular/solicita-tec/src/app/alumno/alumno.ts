@@ -41,7 +41,7 @@ export class AlumnoComponent implements OnInit {
 
     this.userId = user.id;
 
-    // Obtener nombre del alumno
+    
     const { data: perfil } =
       await this.supabaseService.supabase
         .from('perfiles')
@@ -53,7 +53,7 @@ export class AlumnoComponent implements OnInit {
       this.usuarioNombre = perfil.nombre;
     }
 
-    // Cargar solicitudes del alumno
+    
     await this.cargarSolicitudes();
   }
 
@@ -93,7 +93,7 @@ export class AlumnoComponent implements OnInit {
 
       this.motivo = '';
 
-      await this.cargarSolicitudes(); // refrescar
+      await this.cargarSolicitudes(); 
 
     } catch (error) {
 
@@ -111,7 +111,7 @@ export class AlumnoComponent implements OnInit {
 
   }
 
-  // 📊 CONTADORES (dashboard alumno)
+  
   get pendientes() {
     return this.solicitudes.filter(s => s.estado === 'pendiente').length;
   }
