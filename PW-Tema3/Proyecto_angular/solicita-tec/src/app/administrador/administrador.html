@@ -1,0 +1,91 @@
+<div class="dashboard">
+
+  
+  <header class="header">
+
+    <div class="logo-section">
+      <div class="logo">
+        🏫
+      </div>
+
+      <h2>Instituto Tecnológico de Frontera Comalapa</h2>
+    </div>
+
+    <div class="usuario">
+      Hola Administrador...
+    </div>
+
+  </header>
+
+  
+  <section class="stats">
+
+    <div class="stat-card">
+      <h1>{{ pendientes }}</h1>
+      <p>Pendientes</p>
+    </div>
+
+    <div class="stat-card">
+      <h1>{{ aprobados }}</h1>
+      <p>Aprobados</p>
+    </div>
+
+    <div class="stat-card">
+      <h1>{{ rechazados }}</h1>
+      <p>Rechazados</p>
+    </div>
+
+  </section>
+
+  
+  <section class="tabla-container">
+
+    <h3>Bandeja de solicitudes</h3>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Documento</th>
+          <th>Motivo</th>
+          <th>Estado</th>
+          <th>Gestión</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let s of solicitudes">
+
+          <td>{{ s.tipo_documento }}</td>
+
+          <td>{{ s.motivo }}</td>
+
+          <td>
+            <span class="estado" [ngClass]="s.estado">
+              {{ s.estado }}
+            </span>
+          </td>
+
+          <td>
+
+            <select
+              [value]="s.estado"
+              (change)="cambiarEstado(s.id, $event)"
+            >
+              <option value="pendiente">Pendiente</option>
+              <option value="proceso">En proceso</option>
+              <option value="realizado">Realizado</option>
+            </select>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </section>
+
+</div>

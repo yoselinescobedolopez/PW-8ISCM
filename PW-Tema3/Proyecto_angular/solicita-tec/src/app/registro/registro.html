@@ -1,0 +1,21 @@
+<div class="container">
+
+  <h2>Registro de Usuario</h2>
+
+  <input type="text" placeholder="Nombre" [(ngModel)]="nombre">
+
+  <input type="text" placeholder="Número de control" [(ngModel)]="numero_control">
+
+  <input type="email" placeholder="Correo" [(ngModel)]="email">
+
+  <input type="password" placeholder="Contraseña" [(ngModel)]="password">
+
+  <button (click)="register()">
+    Crear cuenta
+  </button>
+
+  <button (click)="goLogin()">
+    Ya tengo cuenta
+  </button>
+
+</div>

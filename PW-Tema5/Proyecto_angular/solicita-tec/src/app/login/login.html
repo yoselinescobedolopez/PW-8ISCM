@@ -1,0 +1,46 @@
+<div class="header">
+  Instituto Tecnológico de Frontera Comalapa
+</div>
+
+<div class="container">
+
+  <img
+    *ngIf="imagen"
+    [src]="imagen"
+    class="login-image">
+
+  <h2>Acceso {{ tipo }}</h2>
+
+  <p>Ingresa con tu usuario y contraseña</p>
+
+  <input
+    type="email"
+    placeholder="Correo"
+    [(ngModel)]="email">
+
+  <input
+    type="password"
+    placeholder="Contraseña"
+    [(ngModel)]="password">
+
+  <button (click)="login()">
+    Iniciar sesión
+  </button>
+<button
+  *ngIf="tipo === 'Usuarios' || tipo === 'alumno'"
+  class="secondary"
+  (click)="goRegistro()">
+
+  Registrarse
+
+</button>
+
+  <footer>
+
+    <p>© 2026 Portal de solicitudes</p>
+
+    <p>Tec Frontera Comalapa</p>
+
+  </footer>
+
+</div>

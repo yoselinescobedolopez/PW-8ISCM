@@ -1,0 +1,85 @@
+<div class="layout">
+
+  <header class="header">
+    <h2>Sistema de Solicitud de Documentos</h2>
+
+    <div class="user">
+      👤 {{ usuarioNombre }}
+    </div>
+
+    <button class="logout" (click)="logout()">
+      Cerrar sesión
+    </button>
+  </header>
+
+  <div class="container">
+
+    <!-- FORMULARIO -->
+    <section class="panel left">
+
+      <h2>Nueva solicitud</h2>
+
+      <form>
+
+        <label>Tipo de documento</label>
+
+        <select [(ngModel)]="tipo_documento" name="tipo">
+          <option value="Kardex">Kardex</option>
+          <option value="Constancia de estudios">Constancia de estudios</option>
+          <option value="Boleta">Boleta</option>
+          <option value="Servicio social">Servicio social</option>
+        </select>
+
+        <label>Motivo</label>
+
+        <textarea
+          [(ngModel)]="motivo"
+          name="motivo"
+          placeholder="Escribe el motivo..."
+        ></textarea>
+
+        <button
+          type="button"
+          (click)="enviarSolicitud()"
+        >
+          Enviar solicitud
+        </button>
+
+      </form>
+
+    </section>
+
+    <!-- SOLICITUDES DEL ALUMNO -->
+    <section class="panel right">
+
+      <h2>📊 Mis solicitudes</h2>
+
+      <div
+        class="card"
+        *ngFor="let s of solicitudes"
+      >
+
+        <p>
+          <strong>{{ s.tipo_documento }}</strong>
+        </p>
+
+        <p>{{ s.motivo }}</p>
+
+        <span
+          class="status"
+          [ngClass]="s.estado"
+        >
+          {{ s.estado }}
+        </span>
+
+      </div>
+
+      <div *ngIf="solicitudes.length === 0">
+        <p>No tienes solicitudes registradas.</p>
+      </div>
+
+    </section>
+
+  </div>
+
+</div>

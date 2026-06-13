@@ -1,0 +1,82 @@
+.layout {
+  font-family: Arial, sans-serif;
+}
+
+
+.header {
+  background: #1e3a8a;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+
+.panel {
+  flex: 1;
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+select, textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
+.card {
+  background: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.status {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+
+.pendiente {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.aprobado {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.proceso {
+  background: #dbeafe;
+  color: #1e40af;
+}
