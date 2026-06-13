@@ -1,0 +1,56 @@
+<div class="layout">
+
+ 
+  <header class="header">
+    <h2>Sistema de Solicitud de Documentos</h2>
+    <div class="user">👤 Alumno</div>
+  </header>
+
+  <div class="container">
+
+    
+    <section class="panel left">
+
+      <h2> Nueva solicitud</h2>
+
+      <form>
+        <label>Tipo de documento</label>
+        <select>
+          <option>Kardex</option>
+          <option>Constancia de estudios</option>
+          <option>Boleta</option>
+          <option>Servicio social</option>
+        </select>
+
+        <label>Motivo</label>
+        <textarea placeholder="Escribe el motivo..."></textarea>
+
+        <button type="button">Enviar solicitud</button>
+      </form>
+
+    </section>
+
+   
+    <section class="panel right">
+
+      <h2>📊 Mis solicitudes</h2>
+
+      <div class="card">
+        <p><b>Kardex</b></p>
+        <span class="status pendiente">Pendiente</span>
+      </div>
+
+      <div class="card">
+        <p><b>Constancia</b></p>
+        <span class="status aprobado">Aprobado</span>
+      </div>
+
+      <div class="card">
+        <p><b>Servicio social</b></p>
+        <span class="status proceso">En proceso</span>
+      </div>
+
+    </section>
+
+  </div>
+</div>
