@@ -98,48 +98,59 @@ export class AlumnoComponent implements OnInit {
 
   async enviarSolicitud() {
 
-    try {
+  try {
 
-      const solicitud = {
-        tipo_documento: this.tipo_documento,
-        motivo: this.motivo,
-        usuario_id: this.userId,
-        estado: 'pendiente'
-      };
+    
+    const solicitud = {
+      tipo_documento: this.tipo_documento,
+      motivo: this.motivo,
+      usuario_id: this.userId,
+      estado: 'pendiente'
+    };
 
-      const solicitudCreada =
-        await this.solicitudesService.crearSolicitud(solicitud);
+    const solicitudCreada =
+      await this.solicitudesService.crearSolicitud(solicitud);
 
-      const solicitudId = solicitudCreada.id;
+    const solicitudId = solicitudCreada.id;
 
-      console.log('🟢 solicitud creada:', solicitudId);
+    
+    for (const a of this.archivosSubidos) {
 
-      for (const a of this.archivosSubidos) {
+      if (!a.file) continue;
 
-        if (!a.file) continue;
+      const fileId = crypto.randomUUID();
 
-        const path =
-          `${this.userId}/${solicitudId}/${a.requisitoId}-${a.file.name}`;
+      const path =
+        `private/${this.userId}/${solicitudId}/${fileId}`;
 
-        console.log(' subiendo:', path);
+      
+      await this.solicitudesService.subirArchivo(a.file, path);
 
-        await this.solicitudesService.subirArchivo(a.file, path);
-      }
-
-      this.archivosSubidos = [];
-      this.motivo = '';
-
-      await this.cargarSolicitudes();
-
-    } catch (err) {
-      console.error('❌ ERROR EN ENVÍO:', err);
+      
+      await this.solicitudesService.guardarArchivoRegistro({
+        solicitud_id: solicitudId,
+        requisito_id: a.requisitoId,
+        user_id: this.userId,
+        nombre_archivo: a.file.name,
+        storage_path: path
+      });
     }
+
+    this.archivosSubidos = [];
+    this.motivo = '';
+
+    await this.cargarSolicitudes();
+
+  } catch (err) {
+    console.error('❌ ERROR:', err);
   }
+}
 
   async logout() {
     await this.supabaseService.logout();
     this.router.navigate(['/']);
   }
+ 
 
   get pendientes() {
     return this.solicitudes.filter(s => s.estado === 'pendiente').length;

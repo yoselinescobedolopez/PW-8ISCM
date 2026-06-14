@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { SupabaseService } from './supabase.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SolicitudesService {
 
-  private supabase: SupabaseClient;
+  constructor(private supabaseService: SupabaseService) {}
 
-  constructor() {
-    this.supabase = createClient(
-      'https://vllgmmifebcsnsongmwt.supabase.co',
-      'sb_publishable_rWlbpu-UcBXVrEcAnIgUrw_4ZaPynaY'
-    );
+  private get supabase() {
+    return this.supabaseService.supabase;
   }
 
   async getSolicitudes() {
@@ -54,26 +51,24 @@ export class SolicitudesService {
     return data;
   }
 
-  async subirArchivo(file: File, path: string) {
+ async subirArchivo(file: File, path: string) {
 
-    const { data, error } = await this.supabase.storage
-      .from('documentos')
-      .upload(path, file, {
-        cacheControl: '3600',
-        upsert: false
-      });
+  const { data, error } = await this.supabase
+    .storage
+    .from('documentos')
+    .upload(path, file, {
+      cacheControl: '3600',
+      upsert: false
+    });
 
-    if (error) {
-      console.error('❌ STORAGE ERROR:', error);
-      throw error;
-    }
-
-    return data;
-  }
+  if (error) throw error;
+  return data;
+}
 
   async listarArchivos(userId: string, solicitudId: string) {
 
-    const { data, error } = await this.supabase.storage
+    const { data, error } = await this.supabase
+      .storage
       .from('documentos')
       .list(`${userId}/${solicitudId}`);
 
@@ -82,11 +77,29 @@ export class SolicitudesService {
     return data || [];
   }
 
-  getUrl(path: string) {
-    const { data } = this.supabase.storage
-      .from('documentos')
-      .getPublicUrl(path);
+  async getSignedUrl(path: string) {
 
-    return data.publicUrl;
+  const { data, error } = await this.supabase
+     .storage
+     .from('documentos')
+     .createSignedUrl(path, 3600);
+
+    if (error) {
+    console.error('SIGNED URL ERROR:', error);
+    return null;
+    }
+
+  return data.signedUrl;
   }
+
+  async guardarArchivoRegistro(data: any) {//esta es la funcion nueva para la nueva tabla de archivos
+  const { data: result, error } = await this.supabase
+    .from('archivos_solicitud')
+    .insert([data])
+    .select()
+    .single();
+
+  if (error) throw error;
+  return result;
+}
 }

@@ -63,41 +63,47 @@ export class AdministradorComponent implements OnInit {
   }
 
   
-
-async verDetalle(solicitud: any) {
+ async verDetalle(solicitud: any) {
 
   this.solicitudSeleccionada = solicitud;
 
+  
   const { data: requisitos } =
     await this.supabaseService.supabase
       .from('requisitos_documentos')
       .select('*')
       .eq('tipo_documento', solicitud.tipo_documento);
 
-  const archivos = await this.solicitudesService.listarArchivos(
-    solicitud.usuario_id,
-    solicitud.id
-  );
+  
 
-  this.requisitosFiltrados = (requisitos || []).map(r => {
+  const { data: archivos } =
+    await this.supabaseService.supabase
+      .from('archivos_solicitud')
+      .select('*')
+      .eq('solicitud_id', solicitud.id);
 
-    const archivo = archivos.find(a => {
+  
+  this.requisitosFiltrados = await Promise.all(
 
-      const prefix = a.name.split('-')[0];
-      return String(prefix) === String(r.id);
-    });
+  (requisitos || []).map(async r => {
 
-    const path = archivo
-      ? `${solicitud.usuario_id}/${solicitud.id}/${archivo.name}`
-      : null;
+    const archivo = (archivos || []).find(a =>
+      a.requisito_id === r.id
+    );
+
+    let archivoUrl = null;
+
+    if (archivo) {
+      archivoUrl = await this.solicitudesService
+        .getSignedUrl(archivo.storage_path);
+    }
 
     return {
       ...r,
-      archivoUrl: path
-        ? this.solicitudesService.getUrl(path)
-        : null
+      archivoUrl
     };
-  });
+  })
+);
 }
 
   async logout() {
@@ -106,7 +112,6 @@ async verDetalle(solicitud: any) {
   }
 
   
-
   get pendientes() {
     return this.solicitudes.filter(s => s.estado === 'pendiente').length;
   }
