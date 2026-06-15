@@ -1,21 +1,39 @@
-<div class="container">
+<div class="page">
 
-  <h2>Registro de Usuario</h2>
+  <div class="header">
+    <h1>Sistema de Registro</h1>
+  </div>
 
-  <input type="text" placeholder="Nombre" [(ngModel)]="nombre">
+  
+  <div class="container">
 
-  <input type="text" placeholder="Número de control" [(ngModel)]="numero_control">
+    <div class="form-box">
 
-  <input type="email" placeholder="Correo" [(ngModel)]="email">
+      <h2>Registro de Usuario</h2>
 
-  <input type="password" placeholder="Contraseña" [(ngModel)]="password">
+      <input type="text" placeholder="Nombre" [(ngModel)]="nombre">
 
-  <button (click)="register()">
-    Crear cuenta
-  </button>
+      <input type="text" placeholder="Número de control" [(ngModel)]="numero_control">
 
-  <button (click)="goLogin()">
-    Ya tengo cuenta
-  </button>
+      <input type="email" placeholder="Correo" [(ngModel)]="email">
+
+      <input type="password" placeholder="Contraseña" [(ngModel)]="password">
+
+      <button (click)="register()">
+        Crear cuenta
+      </button>
+
+      <button (click)="goLogin()">
+        Ya tengo cuenta
+      </button>
+
+    </div>
+
+  </div>
+
+   <footer>
+    <p>© 2026 Portal de solicitudes</p>
+    <p>Tec Frontera Comalapa</p>
+  </footer>
 
 </div>

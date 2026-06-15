@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
     const { data: perfil } =
       await this.supabaseService.supabase
         .from('perfiles')
+        
         .select('rol')
         .eq('id', user.id)
         .single();
